@@ -4,14 +4,16 @@ const { useState } = React;
 const suits = ["♥", "♦", "♣", "♠"];
 const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 
-// Function to generate a full deck
 const generateDeck = () => {
     return suits.flatMap(suit => values.map(value => ({ suit, value })));
 };
 
-const Card = ({ suit, value }) => {
+const Card = ({ suit, value, isSelected, onClick }) => {
     return (
-        <div className="card">
+        <div 
+            className={`card ${isSelected ? "selected" : ""}`} 
+            onClick={onClick}
+        >
             {value} {suit}
         </div>
     );
@@ -20,6 +22,7 @@ const Card = ({ suit, value }) => {
 const App = () => {
     const [deck, setDeck] = useState(generateDeck());
     const [selectedCards, setSelectedCards] = useState([]);
+    const [pickedIndex, setPickedIndex] = useState(null);  // Track selected card
 
     const handleDeckClick = () => {
         if (deck.length === 0) return;
@@ -48,8 +51,26 @@ const App = () => {
     };
 
     const resetGame = () => {
-        setDeck(generateDeck()); // Restore full deck
-        setSelectedCards([]); // Clear selected cards
+        setDeck(generateDeck());
+        setSelectedCards([]);
+        setPickedIndex(null);
+    };
+
+    const handleCardClick = (index) => {
+        if (pickedIndex === null) {
+            // If no card is picked, select this one
+            setPickedIndex(index);
+        } else if (pickedIndex === index) {
+            // If the same card is clicked again, unselect it
+            setPickedIndex(null);
+        } else {
+            // Swap cards
+            let newSelectedCards = [...selectedCards];
+            [newSelectedCards[pickedIndex], newSelectedCards[index]] = [newSelectedCards[index], newSelectedCards[pickedIndex]];
+            
+            setSelectedCards(newSelectedCards);
+            setPickedIndex(null);  // Deselect after swap
+        }
     };
 
     return (
@@ -68,7 +89,13 @@ const App = () => {
 
             <div className="card-container">
                 {selectedCards.map((card, index) => (
-                    <Card key={index} suit={card.suit} value={card.value} />
+                    <Card 
+                        key={index} 
+                        suit={card.suit} 
+                        value={card.value} 
+                        isSelected={index === pickedIndex} 
+                        onClick={() => handleCardClick(index)} 
+                    />
                 ))}
             </div>
         </div>
