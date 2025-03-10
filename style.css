@@ -86,8 +86,8 @@ button:hover {
 
 /* Highlight Selected Card */
 .card.selected {
-    border: 3px solid red !important;
-    background-color: lightyellow !important;
+    border: 3px solid red ;
+    background-color: lightyellow ;
 }
 
 /* Card Hover Effect */
