@@ -72,7 +72,45 @@ const App = () => {
             setPickedIndex(null);  // Deselect after swap
         }
     };
-
+    const tossCard = () => {
+        if (pickedIndex === null) return; // No card selected, do nothing
+    
+        let newSelectedCards = [...selectedCards];
+        newSelectedCards.splice(pickedIndex, 1); // Remove selected card
+    
+        setSelectedCards(newSelectedCards);
+        setPickedIndex(null); // Clear selection
+    };
+    
+    return (
+        <div>
+            <h1>React Card Game</h1>
+    
+            <div className="deck" onClick={handleDeckClick}>
+                {deck.length > 0 ? "Deck" : "No cards remaining"}
+            </div>
+    
+            <div className="buttons">
+                <button onClick={() => dealCards(5)}>Deal 5</button>
+                <button onClick={() => dealCards(7)}>Deal 7</button>
+                <button onClick={resetGame}>Reset</button>  
+                <button onClick={tossCard}>Toss</button> 
+            </div>
+    
+            <div className="card-container">
+                {selectedCards.map((card, index) => (
+                    <Card 
+                        key={index} 
+                        suit={card.suit} 
+                        value={card.value} 
+                        isSelected={index === pickedIndex} 
+                        onClick={() => handleCardClick(index)} 
+                    />
+                ))}
+            </div>
+        </div>
+    );
+    
     return (
         <div>
             <h1>React Card Game</h1>

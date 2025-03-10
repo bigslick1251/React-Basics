@@ -71,6 +71,6 @@ button:hover {
 }
 .card.selected {
     border: 3px solid red;
-    background-color: lightyellow;
+    background-color: yellow;
 }
 
