@@ -58,13 +58,11 @@ const App = () => {
 
     const handleCardClick = (index) => {
         if (pickedIndex === null) {
-            // If no card is picked, select this one
-            setPickedIndex(index);
+            setPickedIndex(index);  // Select card
         } else if (pickedIndex === index) {
-            // If the same card is clicked again, unselect it
-            setPickedIndex(null);
+            setPickedIndex(null);  // Unselect if clicked again
         } else {
-            // Swap cards
+            // Swap selected cards
             let newSelectedCards = [...selectedCards];
             [newSelectedCards[pickedIndex], newSelectedCards[index]] = [newSelectedCards[index], newSelectedCards[pickedIndex]];
             
@@ -72,45 +70,31 @@ const App = () => {
             setPickedIndex(null);  // Deselect after swap
         }
     };
+
     const tossCard = () => {
-        if (pickedIndex === null) return; // No card selected, do nothing
-    
+        if (pickedIndex === null) return; // No card selected
+
         let newSelectedCards = [...selectedCards];
         newSelectedCards.splice(pickedIndex, 1); // Remove selected card
-    
+
         setSelectedCards(newSelectedCards);
         setPickedIndex(null); // Clear selection
     };
-    
-    return (
-        <div>
-            <h1>React Card Game</h1>
-    
-            <div className="deck" onClick={handleDeckClick}>
-                {deck.length > 0 ? "Deck" : "No cards remaining"}
-            </div>
-    
-            <div className="buttons">
-                <button onClick={() => dealCards(5)}>Deal 5</button>
-                <button onClick={() => dealCards(7)}>Deal 7</button>
-                <button onClick={resetGame}>Reset</button>  
-                <button onClick={tossCard}>Toss</button> 
-            </div>
-    
-            <div className="card-container">
-                {selectedCards.map((card, index) => (
-                    <Card 
-                        key={index} 
-                        suit={card.suit} 
-                        value={card.value} 
-                        isSelected={index === pickedIndex} 
-                        onClick={() => handleCardClick(index)} 
-                    />
-                ))}
-            </div>
-        </div>
-    );
-    
+
+    const regroupCards = () => {
+        if (selectedCards.length < 2) return; // No need to shuffle if 1 or 0 cards
+
+        let shuffledCards = [...selectedCards];
+
+        // Fisher-Yates Shuffle Algorithm
+        for (let i = shuffledCards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
+        }
+
+        setSelectedCards(shuffledCards);
+    };
+
     return (
         <div>
             <h1>React Card Game</h1>
@@ -123,6 +107,8 @@ const App = () => {
                 <button onClick={() => dealCards(5)}>Deal 5</button>
                 <button onClick={() => dealCards(7)}>Deal 7</button>
                 <button onClick={resetGame}>Reset</button>  
+                <button onClick={tossCard}>Toss</button>  
+                <button onClick={regroupCards}>Regroup</button>  
             </div>
 
             <div className="card-container">
