@@ -1,3 +1,6 @@
+/* StAuth10244: I Chris Kennedy, 929218 certify that this material is my original work.
+  No other person's work has been used without due acknowledgement. I have not made my work
+   available to anyone else." */
 const { useState } = React;
 // Standard deck of 52 cards
 const suits = ["♥", "♦", "♣", "♠"];
