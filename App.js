@@ -32,7 +32,7 @@ const App = () => {
     };
 
     const dealCards = (num) => {
-        if (deck.length < num) return; // Prevent dealing more cards than available
+        if (deck.length < num) return;
 
         let newDeck = [...deck];
         let newCards = [];
@@ -47,6 +47,11 @@ const App = () => {
         setSelectedCards(newCards);
     };
 
+    const resetGame = () => {
+        setDeck(generateDeck()); // Restore full deck
+        setSelectedCards([]); // Clear selected cards
+    };
+
     return (
         <div>
             <h1>React Card Game</h1>
@@ -58,6 +63,7 @@ const App = () => {
             <div className="buttons">
                 <button onClick={() => dealCards(5)}>Deal 5</button>
                 <button onClick={() => dealCards(7)}>Deal 7</button>
+                <button onClick={resetGame}>Reset</button>  
             </div>
 
             <div className="card-container">
@@ -68,6 +74,5 @@ const App = () => {
         </div>
     );
 };
-
 
 ReactDOM.render(<App />, document.getElementById("root"));
