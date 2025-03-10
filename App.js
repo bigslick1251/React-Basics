@@ -94,6 +94,15 @@ const App = () => {
 
         setSelectedCards(shuffledCards);
     };
+    const addWildcard = () => {
+        // Generate a random suit and value
+        const randomSuit = suits[Math.floor(Math.random() * suits.length)];
+        const randomValue = values[Math.floor(Math.random() * values.length)];
+        const wildcardCard = { suit: randomSuit, value: randomValue };
+    
+        // Add the new card to selected cards
+        setSelectedCards([...selectedCards, wildcardCard]);
+    };
 
     return (
         <div>
@@ -108,7 +117,8 @@ const App = () => {
                 <button onClick={() => dealCards(7)}>Deal 7</button>
                 <button onClick={resetGame}>Reset</button>  
                 <button onClick={tossCard}>Toss</button>  
-                <button onClick={regroupCards}>Regroup</button>  
+                <button onClick={regroupCards}>Regroup</button>
+                <button onClick={addWildcard}>Wildcard</button>  
             </div>
 
             <div className="card-container">
