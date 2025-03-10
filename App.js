@@ -35,7 +35,7 @@ const App = () => {
         setDeck(deck.filter((_, index) => index !== randomIndex));
         setSelectedCards([...selectedCards, pickedCard]);
     };
-
+/* Deal Card */
     const dealCards = (num) => {
         if (deck.length < num) return;
 
@@ -57,7 +57,7 @@ const App = () => {
         setSelectedCards([]);
         setPickedIndex(null);
     };
-
+/* Click card*/
     const handleCardClick = (index) => {
         if (pickedIndex === null) {
             setPickedIndex(index);  // Select card
@@ -72,7 +72,7 @@ const App = () => {
             setPickedIndex(null);  // Deselect after swap
         }
     };
-
+/* Toss Card */
     const tossCard = () => {
         if (pickedIndex === null) return; // No card selected
 
@@ -82,7 +82,7 @@ const App = () => {
         setSelectedCards(newSelectedCards);
         setPickedIndex(null); // Clear selection
     };
-
+/* Regroup */
     const regroupCards = () => {
         if (selectedCards.length < 2) return; // No need to shuffle if 1 or 0 cards
 
@@ -96,6 +96,7 @@ const App = () => {
 
         setSelectedCards(shuffledCards);
     };
+    /* Wild card*/
     const addWildcard = () => {
         // Generate a random suit and value
         const randomSuit = suits[Math.floor(Math.random() * suits.length)];
@@ -107,6 +108,7 @@ const App = () => {
     };
 
     return (
+        /* UI */ 
         <div>
             <h1>React Card Game</h1>
 

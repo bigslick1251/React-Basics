@@ -1,7 +1,8 @@
 /* StAuth10244: I Chris Kennedy, 929218 certify that this material is my original work.
   No other person's work has been used without due acknowledgement. I have not made my work
    available to anyone else." */
-body {
+/* general styling*/
+   body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: lightgray;
@@ -28,7 +29,7 @@ h1 {
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
     transition: background-color 0.2s ease-in-out;
 }
-
+/* Deck hovering*/
 .deck:hover {
     background-color: forestgreen;
 }
@@ -41,7 +42,7 @@ h1 {
     margin-top: 20px;
     flex-wrap: wrap;
 }
-
+/*Button styling*/
 button {
     padding: 10px 15px;
     font-size: 16px;
